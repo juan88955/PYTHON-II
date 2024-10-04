@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .message {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Gestor de Tareas</h1>
+
+        {% if message %}
+        <div class="message">{{ message }}</div>
+        {% endif %}
+
+        <h2>Crear Nueva Tarea</h2>
+        <form method="POST">
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">Descripción:</label>
+            <textarea id="description" name="description"></textarea>
+
+            <input type="submit" value="Crear Tarea">
+        </form>
+
+        <h2>Lista de Tareas</h2>
+        <ul>
+            {% for task in tasks %}
+            <li>
+                <strong>{{ task.title }}</strong>
+                {% if task.description %}<br>{{ task.description }}{% endif %}
+                <br><small>Creada el: {{ task.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>
